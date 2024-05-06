@@ -56,8 +56,6 @@ exports.loginUser = async (req, res) => {
     try {
         // Take User Inputs
         const { email, password } = req.body;
-        console.log("Email ", email);
-        console.log("Password", password);
 
         // Validate User Inputs
         if (!email || !password) {
@@ -68,9 +66,7 @@ exports.loginUser = async (req, res) => {
         }
 
         // Find User
-        console.log("Before User");
         const user = await User.findOne({ email });
-        console.log("User", user);
 
         if (!user) {
             return res.status(404).json({
@@ -80,9 +76,7 @@ exports.loginUser = async (req, res) => {
         }
 
         // Check Password Matching
-        console.log("Before checkPassword");
         const checkPassword = bcrypt.compare(password, user.password);
-        console.log("CheckPassword", checkPassword);
 
         if (!checkPassword) {
             return res.status(402).json({
@@ -99,7 +93,6 @@ exports.loginUser = async (req, res) => {
         }
 
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        console.log("token", token);
 
         // Send Cookie
         res.cookie("token", token, { httpOnly: true }).status(200).json({
