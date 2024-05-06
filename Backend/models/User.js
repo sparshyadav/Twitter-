@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-exports.userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -42,4 +42,6 @@ exports.userSchema = new mongoose.Schema({
             ref: "Tweet"
         }
     ]
-})
+});
+
+module.exports=mongoose.model("User", userSchema);
