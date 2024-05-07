@@ -113,3 +113,24 @@ exports.loginUser = async (req, res) => {
         })
     }
 }
+
+exports.logoutUser=async(req, res)=>{
+    try{
+        // Just Clear the Cookie, and the User will be LogedOut
+        res.clearCookie("token");
+
+        res.status(200).json({
+            success: true,
+            message: "User logged out successfully"
+        });
+    }
+    catch(error){
+        console.log("An Error Occurred While Loging Out the User", error);
+
+        res.status(500).json({
+            success: false,
+            message: "An Error Occurred While Loging Out the User",
+            error: error.message
+        })
+    }
+}
